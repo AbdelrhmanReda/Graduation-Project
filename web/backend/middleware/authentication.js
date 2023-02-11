@@ -1,21 +1,28 @@
-const { UnauthenticatedError } = require("../errors");
+const { UnauthenticatedError, UnauthorizedError } = require("../errors");
 const { isTokenValid } = require("../utils");
 
-const authenticateHR = async (req, res, next) => {
-  console.log("authinticate hr ");
+const authenticate = (Role) => {
+  return async (req, res, next) => {
+    console.log("inside authinticate");
 
-  const token = req.signedCookies.token;
+    const token = req.signedCookies.token;
+    if (!token) {
+      throw new UnauthenticatedError("authentication Invalid");
+    }
+    try {
+      const { name, id, role } = isTokenValid({ token });
 
-  if (!token) {
-    throw new UnauthenticatedError("authentication Invalid");
-  }
-  try {
-    const { name, hrId, role } = isTokenValid({ token });
-    req.hr = { name, hrId, role };
-    next();
-  } catch (error) {
-    throw new UnauthenticatedError("authentication Invalid");
-  }
+      if (role !== Role) {
+        console.log("Unauthorized role != Role");
+        throw new UnauthorizedError("Unauthorized");
+      }
+      req[role] = { name, id, role };
+      console.log(req[role]);
+      next();
+    } catch (error) {
+      console.log(error);
+      throw new UnauthenticatedError("authentication Invalid");
+    }
+  };
 };
-
-module.exports = { authenticateHR };
+module.exports = { authenticate };

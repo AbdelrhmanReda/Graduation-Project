@@ -30,7 +30,7 @@ const HrSchema = new mongoose.Schema({
 });
 
 HrSchema.pre("save", async function () {
-  this.role = "hr";
+  this.role = "candidate";
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
@@ -40,4 +40,4 @@ HrSchema.methods.comparePassword = async function (providedPassword) {
   return isMatch;
 };
 
-module.exports = mongoose.model("Hr", HrSchema);
+module.exports = mongoose.model("Candidates", HrSchema);
