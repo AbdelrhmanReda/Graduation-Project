@@ -26,6 +26,7 @@ const HrSchema = new mongoose.Schema({
   },
   role: {
     type: String,
+    immutable: true,
   },
 });
 

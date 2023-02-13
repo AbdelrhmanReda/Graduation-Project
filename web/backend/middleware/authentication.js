@@ -16,8 +16,8 @@ const authenticate = (Role) => {
         console.log("Unauthorized role != Role");
         throw new UnauthorizedError("Unauthorized");
       }
-      req[role] = { name, id, role };
-      console.log(req[role]);
+      req.user = { name, id, role };
+      console.log(req.user);
       next();
     } catch (error) {
       console.log(error);

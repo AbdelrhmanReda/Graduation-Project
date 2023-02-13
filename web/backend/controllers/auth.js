@@ -58,7 +58,7 @@ const logout = (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() + 1000),
   });
-  res.status(StatusCodes.OK).json({ msg: "candidate logged out!" });
+  res.status(StatusCodes.OK).json({ msg: "user logged out!" });
 };
 
 module.exports = {
