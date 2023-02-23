@@ -14,7 +14,7 @@ const JobSchema = new mongoose.Schema({
     // required: [true, "Please provide company name"],
   },
   hr: {
-    // type: [hrSchema],
+    type: mongoose.Types.ObjectId,
   },
   accountManager: {
     type: mongoose.Types.ObjectId,
