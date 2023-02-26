@@ -11,6 +11,7 @@ const auth = require("./routes/auth");
 const hr = require("./routes/hr");
 const candidate = require("./routes/candidate");
 const user = require("./routes/users");
+const application = require("./routes/applications");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use("/api/auth", auth);
 app.use("/api/users", user);
 app.use("/api/hr", hr);
 app.use("/api/candidate", candidate);
+app.use("/api/application", application);
 
 app.use(notFound);
 app.use(errorHandler);
