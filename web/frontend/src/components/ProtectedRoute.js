@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { openAuth } from '../features/ui/uiSlice'
+import { openAuth } from '../services/ui/uiSlice'
 
 const ProtectedRoute = ({ children }) => {
   const location = useLocation()

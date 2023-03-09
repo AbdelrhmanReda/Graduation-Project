@@ -10,8 +10,8 @@ import {
 } from "react-icons/md";
 import Logo from "../../assets/Logo.webp";
 import { useDispatch, useSelector } from "react-redux";
-import { openAuth, toggleNavbar } from "../../features/ui/uiSlice"; //toggleNavbar for mobile
-import { logout, reset } from "../../features/auth/authSlice";
+import { openAuth, toggleNavbar } from "../../services/ui/uiSlice"; //toggleNavbar for mobile
+import { logout, reset } from "../../services/auth/authSlice";
 import AuthModal from "../Auth/AuthModal";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 

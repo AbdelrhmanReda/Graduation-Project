@@ -3,7 +3,7 @@ import api from '../../utils/api'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import moment from 'moment'
-import { applyJob } from '../../features/ui/uiSlice'
+import { applyJob } from '../../services/ui/uiSlice'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../Loading'
 

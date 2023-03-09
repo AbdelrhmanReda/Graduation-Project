@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { logout } from '../features/auth/authSlice'
+import { logout } from '../services/auth/authSlice'
 
 let store
 export const injectStore = (_store) => {
