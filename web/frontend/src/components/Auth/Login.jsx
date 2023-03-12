@@ -31,9 +31,7 @@ const Login = ({ setOpenLogin }) => {
     }
 
     if (isSuccess || user) {
-      if (user?.role === "admin") {
-        navigate(state?.path || "/admin/dashboard");
-      } else if (user?.role === "company") {
+     if (user?.role === "company") {
         navigate(state?.path || "/company/dashboard");
       } else {
         navigate("/");

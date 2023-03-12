@@ -9,6 +9,7 @@ import {
   MdOutlineBusinessCenter,
 } from "react-icons/md";
 import Logo from "../../assets/Logo.webp";
+import avatar from "../../assets/images.png";
 import { useDispatch, useSelector } from "react-redux";
 import { openAuth, toggleNavbar } from "../../services/ui/uiSlice"; //toggleNavbar for mobile
 import { logout, reset } from "../../services/auth/authSlice";
@@ -109,7 +110,7 @@ const Navbar = () => {
                 </span>
                 <img
                   className="dashboard-avatar"
-                  src={user?.profileImg}
+                  src={avatar}
                   alt="user-profile"
                 />
               </button>
@@ -132,6 +133,7 @@ const Navbar = () => {
                         <span>Dashboard</span>
                       </Link>
                     )}
+                    
                     {user?.role === "user" && (
                       <Link to={"/user-profile"} className="avatar-option ">
                         <MdOutlineDescription className="text-xl" />
