@@ -89,10 +89,10 @@ const Navbar = () => {
               Sign in
             </button>
             <Link
-              to={"/company/post-job"}
+              to={"/company/sign-up"}
               className="px-4 py-1 md:px-6 md:py-2 text-center font-medium bg-[#312ECB] rounded-md hover:bg-blue-700"
             >
-              Post Job
+              company SignUp
             </Link>
           </div>
         )}
@@ -156,6 +156,8 @@ const Navbar = () => {
             </div>
           )}
 
+
+
           {/* Toggle Button for mobile >> responsive */}
           {toggleNav ? (
             <MdClose
@@ -170,6 +172,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
       {/* mobile Navbar */}
       {toggleNav && (
         <div className="h-screen md:hidden fixed top-0 left-0 w-full bg-black z-30 pt-24 pb-8 px-6">
@@ -209,11 +212,11 @@ const Navbar = () => {
                 Sign in
               </button>
               <Link
-                to={"/company/post-job"}
+                to={"/company/sign-up"}
                 className="px-4 py-2 text-center font-medium bg-[#312ECB] rounded-md hover:bg-blue-700"
                 onClick={() => dispatch(toggleNavbar())}
               >
-                Post Job
+                Company SignUp
               </Link>
             </div>
           )}
