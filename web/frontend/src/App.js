@@ -34,12 +34,15 @@ const App = () => {
         <Route
                   path='/company/dashboard'
                   element={
-                    <ProtectedRoute>
+                    
                       <Dashboard />
-                    </ProtectedRoute>
+                   
                   }
           />
       </Routes>
+
+      
+      
 
       <ToastContainer
         position="bottom-right"
