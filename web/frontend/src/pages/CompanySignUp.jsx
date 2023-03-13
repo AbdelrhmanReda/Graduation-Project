@@ -38,7 +38,7 @@ const CompanySignUp = () => {
     }
 
     if (isSuccess || user) {
-      navigate(state?.path || '/company/dashboar')
+      navigate(state?.path || '/company/dashboard')
     }
 
     dispatch(reset())
@@ -275,13 +275,6 @@ const CompanySignUp = () => {
                 'Create an Account'
               )}
             </button>
-            <Link
-                to={"/company/dashboard"}
-                className="px-4 py-2 text-center font-medium bg-[#312ECB] rounded-md hover:bg-blue-700"
-               
-              >
-                Test
-              </Link>
             <p className='col-span-6 text-sm w-full text-center font-bold text-[#6B7E8B]'>
               If you have an account?
               <span
