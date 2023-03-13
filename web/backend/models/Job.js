@@ -14,7 +14,7 @@ const JobSchema = new mongoose.Schema({
     // required: [true, "Please provide company name"],
   },
   hr: {
-    // type: [hrSchema],
+    type: mongoose.Types.ObjectId,
   },
   accountManager: {
     type: mongoose.Types.ObjectId,
@@ -68,4 +68,4 @@ const JobSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("jobs", JobSchema);
+module.exports = mongoose.model("Jobs", JobSchema);

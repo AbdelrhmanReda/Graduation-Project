@@ -4,12 +4,20 @@ const CustomeAPIError = require("../errors");
 
 const getAllJobs = async (req, res) => {
   const jobs = await Job.find();
+  if (!jobs.length) {
+    throw new CustomeAPIError.NotFoundError("No jobs found");
+  }
   res.status(StatusCodes.OK).json({ jobs });
 };
 
-const createJob = async (req, res) => {
-  const job = await Job.create(req.body);
-  res.status(StatusCodes.CREATED).json({ job });
+const getAllMyJobs = async (req, res) => {
+  const jobs = await Job.find({ hr: req.user.id });
+  if (!jobs.length) {
+    throw new CustomeAPIError.NotFoundError(
+      `No jobs found for hr ${req.user.name}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ jobs });
 };
 
 const getJob = async (req, res) => {
@@ -20,6 +28,12 @@ const getJob = async (req, res) => {
     throw new CustomeAPIError.NotFoundError(`No job with id ${job_id}`);
   }
   res.status(StatusCodes.OK).json({ job });
+};
+
+const createJob = async (req, res) => {
+  req.body.hr = req.user.id;
+  const job = await Job.create(req.body);
+  res.status(StatusCodes.CREATED).json({ job });
 };
 
 const editJob = async (req, res) => {
@@ -48,6 +62,7 @@ const deleteJob = async (req, res) => {
 
 module.exports = {
   getAllJobs,
+  getAllMyJobs,
   getJob,
   createJob,
   editJob,
