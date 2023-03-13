@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../middleware/authentication");
+const { authorize } = require("../middleware/authorization");
 
 const {
   applyForJob,
@@ -11,12 +12,12 @@ const {
 
 router
   .route("/")
-  .post(authenticate("candidate"), applyForJob)
-  .get(authenticate("candidate"), getAllApps);
+  .post(authenticate, authorize("candidate"), applyForJob)
+  .get(authenticate, authorize("candidate"), getAllApps);
 
 router
   .route("/:id")
-  .get(authenticate("candidate"), getApp)
-  .delete(authenticate("candidate"), deleteApp);
+  .get(authenticate, authorize("candidate"), getApp)
+  .delete(authenticate, authorize("candidate"), deleteApp);
 
 module.exports = router;

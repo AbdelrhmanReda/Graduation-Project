@@ -1,7 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const Candidate = require("../models/Candidate");
-const { findByIdAndDelete } = require("../models/HR");
-const HR = require("../models/HR");
+const User = require("../models/User");
 
 const showMe = async (req, res) => {
   res.status(StatusCodes.OK).json(req.user);
@@ -9,7 +7,6 @@ const showMe = async (req, res) => {
 
 const updateInfo = async (req, res) => {
   delete req.body.password;
-  const User = req.user.role === "hr" ? HR : Candidate;
 
   const user = await User.findByIdAndUpdate({ _id: req.user.id }, req.body, {
     new: true,
@@ -20,15 +17,13 @@ const updateInfo = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  const User = req.user.role === "hr" ? HR : Candidate;
-
   const { oldPassword, newPassword } = req.body;
   if (!oldPassword || !newPassword) {
     throw new CustomError.BadRequestError(
       "Please provide the old and new password"
     );
   }
-  const user = await User.findOne({ _id: req.role.id });
+  const user = await User.findOne({ _id: req.user.id });
 
   const isPasswordCorrect = await user.comparePassword(oldPassword);
   if (!isPasswordCorrect) {
@@ -41,10 +36,18 @@ const updatePassword = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const User = req.user.role === "hr" ? HR : Candidate;
   await User.findByIdAndDelete({ _id: req.role.id });
 
   res.status(StatusCodes.OK).json({ msg: "Success! user deleted." });
+};
+
+const updateProfile = async (req, res) => {
+  const { yearsOfExperience, skills, jobTitle } = req.body;
+  const user = await User.findOne({ _id: req.user.id });
+  const skillsArr = skills.split(",");
+  const updatedUser = { ...user, yearsOfExperience, jobTitle, skillsArr };
+  await User.findByIdAndUpdate(req.user.id, updatedUser);
+  res.status(StatusCodes.OK).json({ msg: "Success! profile updated" });
 };
 
 module.exports = {
@@ -52,4 +55,5 @@ module.exports = {
   updateInfo,
   updatePassword,
   deleteUser,
+  updateProfile,
 };
