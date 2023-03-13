@@ -24,6 +24,9 @@ const HrSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     minlength: 6,
   },
+  skills: {
+    type: Array,
+  },
   role: {
     type: String,
     immutable: true,
