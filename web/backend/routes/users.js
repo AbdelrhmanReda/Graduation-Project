@@ -7,6 +7,7 @@ const {
   updateInfo,
   updatePassword,
   deleteUser,
+  updateProfile,
 } = require("../controllers/users");
 
 router
@@ -24,5 +25,9 @@ router
 router
   .route("/candidate/updatePassword")
   .patch(authenticate("candidate"), updatePassword);
+
+router
+  .route("/candidate/updateProfile")
+  .patch(authenticate("candidate"), updateProfile);
 
 module.exports = router;

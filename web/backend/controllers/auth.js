@@ -1,12 +1,11 @@
-const Candidate = require("../models/Candidate");
-const HR = require("../models/HR");
+const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const { attachCookiesToResponse } = require("../utils");
 
 const register = async (req, res) => {
-  const { email, role, password, confirmPassword } = req.body;
-  const User = role === "hr" ? HR : Candidate;
+  const { email, password, confirmPassword } = req.body;
+
   if (!email || !password) {
     throw new CustomError.BadRequestError("Please provide email and password");
   }
@@ -35,7 +34,6 @@ const login = async (req, res) => {
   if (!email || !password) {
     throw new CustomError.BadRequestError("Please provide email and password");
   }
-  const User = role === "HR" ? HR : Candidate;
 
   const user = await User.findOne({ email });
 
