@@ -4,11 +4,13 @@ const CustomError = require("../errors");
 const { attachCookiesToResponse } = require("../utils");
 
 const register = async (req, res) => {
+
   const { email, password, confirmPassword } = req.body;
 
   if (!email || !password) {
     throw new CustomError.BadRequestError("Please provide email and password");
   }
+
 
   if (password !== confirmPassword) {
     throw new CustomError.BadRequestError("passwords did not match");
