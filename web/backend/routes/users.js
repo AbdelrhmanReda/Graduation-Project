@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../middleware/authentication");
+const { authorize } = require("../middleware/authorization");
 
 const {
   showMe,
@@ -12,22 +13,24 @@ const {
 
 router
   .route("/hr")
-  .get(authenticate("hr"), showMe)
-  .patch(authenticate("hr"), updateInfo)
-  .delete(authenticate("hr"), deleteUser);
-router.route("/hr/updatePassword").patch(authenticate("hr"), updatePassword);
+  .get(authenticate, authorize("hr"), showMe)
+  .patch(authenticate, authorize("hr"), updateInfo)
+  .delete(authenticate, authorize("hr"), deleteUser);
+router
+  .route("/hr/updatePassword")
+  .patch(authenticate, authorize("hr"), updatePassword);
 
 router
   .route("/candidate")
-  .get(authenticate("candidate"), showMe)
-  .patch(authenticate("candidate"), updateInfo)
-  .delete(authenticate("candidate"), deleteUser);
+  .get(authenticate, authorize("candidate"), showMe)
+  .patch(authenticate, authorize("candidate"), updateInfo)
+  .delete(authenticate, authorize("candidate"), deleteUser);
 router
   .route("/candidate/updatePassword")
-  .patch(authenticate("candidate"), updatePassword);
+  .patch(authenticate, authorize("candidate"), updatePassword);
 
 router
   .route("/candidate/updateProfile")
-  .patch(authenticate("candidate"), updateProfile);
+  .patch(authenticate, authorize("candidate"), updateProfile);
 
 module.exports = router;

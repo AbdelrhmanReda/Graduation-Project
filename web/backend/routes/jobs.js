@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../middleware/authentication");
+const { authorize } = require("../middleware/authorization");
 
 const {
   createJob,
@@ -17,25 +18,26 @@ const {
   getSingleJobApp,
 } = require("../controllers/applications");
 
-router.route("/").get(getAllJobs).post(authenticate("hr"), createJob);
+router
+  .route("/")
+  .get(getAllJobs)
+  .post(authenticate, authorize("hr"), createJob);
 
-router.route("/myJobs").get(authenticate("hr"), getAllMyJobs);
+router.route("/myJobs").get(authenticate, authorize("hr"), getAllMyJobs);
 
 router
   .route("/:id")
   .get(getJob)
-  .patch(authenticate("hr"), editJob)
-  .delete(authenticate("hr"), deleteJob);
+  .patch(authenticate, authorize("hr"), editJob)
+  .delete(authenticate, authorize("hr"), deleteJob);
 
-router.route("/:id/applications").get(authenticate("hr"), getSingleJobApps);
+router
+  .route("/:id/applications")
+  .get(authenticate, authorize("hr"), getSingleJobApps);
 
 router
   .route("/:id/:appId")
-  .get(authenticate("hr"), getSingleJobApp)
-  .patch(authenticate("hr"), editAppStatus);
-
-// router.route("/:id/applications").get
-
-// router.route("/:id/applicationId").get
+  .get(authenticate, authorize("hr"), getSingleJobApp)
+  .patch(authenticate, authorize("hr"), editAppStatus);
 
 module.exports = router;
